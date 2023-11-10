@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">News App</string>
+    <string name="title_text">My News</string>
+    <string name="subtitle_text">Popular News</string>
 
 
 </resources>
