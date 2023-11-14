@@ -1,5 +1,6 @@
 package ru.aapodomatko.newsapp.ui.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,7 @@ class MainViewModel @Inject constructor(private val repository: NewsRepository):
     var newsPage: Int = 1
 
     init {
-        getNews("us")
+        getNews("ru")
     }
 
     private fun getNews(countryCode: String) =

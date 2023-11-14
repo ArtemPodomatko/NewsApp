@@ -38,9 +38,9 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     override fun onBindViewHolder(holder: NewsAdapter.NewsViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.itemView.apply {
-            val articleImage = findViewById<ImageView>(R.id.article_image)
-            val articleTitle = findViewById<TextView>(R.id.article_title)
-            val articleData = findViewById<TextView>(R.id.article_data)
+            val articleImage: ImageView = findViewById(R.id.article_image)
+            val articleTitle: TextView = findViewById(R.id.article_title)
+            val articleData: TextView = findViewById(R.id.article_data)
             Glide.with(this).load(article.urlToImage).into(articleImage)
             articleImage.clipToOutline = true
             articleTitle.text = article.title

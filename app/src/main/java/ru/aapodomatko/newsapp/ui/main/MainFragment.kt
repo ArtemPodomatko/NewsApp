@@ -18,6 +18,7 @@ import ru.aapodomatko.newsapp.utils.Resource
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
+    
 
     private var _binding: FragmentMainBinding? = null
     private val mBinding get() = _binding!!
@@ -40,19 +41,19 @@ class MainFragment : Fragment() {
         viewModel.newsLiveData.observe(viewLifecycleOwner) { responce ->
             when(responce) {
                 is Resource.Success -> {
-                    mBinding.progressBar.visibility = View.INVISIBLE
+                    mBinding.pagProgressBar.visibility = View.INVISIBLE
                     responce.data?.let {
                         newsAdapter.differ.submitList(it.articles)
                     }
                 }
                 is Resource.Error -> {
-                    mBinding.progressBar.visibility = View.INVISIBLE
+                    mBinding.pagProgressBar.visibility = View.INVISIBLE
                     responce.data?.let {
                         Log.e("checkData", "MainFragment: error: ${it.status}")
                     }
                 }
                 is Resource.Loading -> {
-                    mBinding.progressBar.visibility = View.VISIBLE
+                    mBinding.pagProgressBar.visibility = View.VISIBLE
                 }
             }
         }
@@ -60,7 +61,7 @@ class MainFragment : Fragment() {
 
     private fun initAdapter() {
         newsAdapter = NewsAdapter()
-        mBinding.recyclerView.apply {
+        mBinding.newsAdapter.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
         }
