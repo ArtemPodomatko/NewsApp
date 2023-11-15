@@ -4,6 +4,8 @@
     <string name="subtitle_text">Popular News</string>
     <string name="search_view">Search</string>
     <string name="musk_invited">Musk invited</string>
+    <string name="description">Description</string>
+    <string name="visit_site">Visit site</string>
 
 
 </resources>
