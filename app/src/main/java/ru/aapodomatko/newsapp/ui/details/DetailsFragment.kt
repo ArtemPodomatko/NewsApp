@@ -10,28 +10,34 @@ import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import ru.aapodomatko.newsapp.R
+import dagger.hilt.android.AndroidEntryPoint
 import ru.aapodomatko.newsapp.databinding.FragmentDetailsBinding
 import java.lang.Exception
 
 
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val mBinding get() = _binding!!
     private val bundleArgs: DetailsFragmentArgs by navArgs()
+    private val mViewModel by viewModels<DetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDetailsBinding.inflate(layoutInflater, container, false)
         return mBinding.root
+
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,10 +59,7 @@ class DetailsFragment : Fragment() {
                         .setAction(Intent.ACTION_VIEW)
                         .addCategory(Intent.CATEGORY_BROWSABLE)
                         .setData(Uri.parse(takeIf { URLUtil.isValidUrl(article.url) }
-                            ?.let {
-                                article.url
-                            } ?: "https://google.com"
-                        ))
+                            ?.let { article.url } ?: "https://google.com"))
                         .let {
                             ContextCompat.startActivity(requireContext(), it, null)
                         }
@@ -66,10 +69,15 @@ class DetailsFragment : Fragment() {
                         context,
                         "The device doesn't have any browser to view the document",
                         Toast.LENGTH_SHORT
-                        )
+                        ).show()
                 }
             }
+            mBinding.iconFavorite.setOnClickListener {
+                article.isLiked = true
+                mViewModel.saveFavoriteArticles(article)
+            }
         }
+
     }
 
 }

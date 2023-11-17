@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,9 @@ import com.bumptech.glide.Glide
 import ru.aapodomatko.newsapp.R
 import ru.aapodomatko.newsapp.models.Article
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
+class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+
 
     inner class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -41,10 +44,21 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
             val articleImage: ImageView = findViewById(R.id.article_image)
             val articleTitle: TextView = findViewById(R.id.article_title)
             val articleData: TextView = findViewById(R.id.article_data)
+            val heartImage: ImageView = findViewById(R.id.heart_icon)
             Glide.with(this).load(article.urlToImage).into(articleImage)
             articleImage.clipToOutline = true
             articleTitle.text = article.title
             articleData.text = article.publishedAt
+            if (article.isLiked == true) {
+                heartImage.setColorFilter(ContextCompat.getColor(context, R.color.red))
+            } else {
+                heartImage.setColorFilter(ContextCompat.getColor(context, R.color.black))
+            }
+
+            heartImage.setOnClickListener {
+                article.isLiked = false
+                removeItem(article)
+            }
 
             setOnClickListener {
                 onItemCLickListener?.let { it(article) }
@@ -61,6 +75,14 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     fun setOnClickListener(listener: (Article) -> Unit) {
         onItemCLickListener = listener
     }
+
+    private fun removeItem(article: Article) {
+        val currentList = ArrayList(differ.currentList)
+        currentList.remove(article)
+        differ.submitList(currentList)
+    }
+
+
 
 
 }

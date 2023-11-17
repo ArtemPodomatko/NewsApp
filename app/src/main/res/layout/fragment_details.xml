@@ -29,7 +29,8 @@
                 android:layout_marginBottom="18dp"
                 android:src="@drawable/arrow_back"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/yellow" />
 
             <ImageView
                 android:id="@+id/icon_favorite"
@@ -39,7 +40,8 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginEnd="17dp"
                 app:layout_constraintEnd_toStartOf="@+id/icon_share"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/yellow"/>
 
             <ImageView
                 android:id="@+id/icon_share"
@@ -49,7 +51,8 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:tint="@color/yellow"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,7 +98,8 @@
         tools:text="Recently, Twitter announced that it has entered into a definitive agreement to be acquired by an entity wholly owned by Musk for $54.20 per share in cash in a transaction valued at nearly $44 billion."
         app:layout_constraintTop_toBottomOf="@id/article_details_description_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UnusedAttribute" />
 
     <Button
         android:id="@+id/article_details_button"
